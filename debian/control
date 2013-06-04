@@ -1,0 +1,16 @@
+Source: kalkuluvtsains
+Section: python
+Priority: extra
+Maintainer: Raviyanto Ahmad <raviyanto@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+Homepage: https://github.com/UVT
+Vcs-Git: git://github.com/UVT/Python-UVT-Git.git
+Vcs-Browser: https://github.com/UVT/Python-UVT-Git.git
+
+Package: kalkuluvtsains
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: kalkulator saintifik UVT
+ kalkulator saintifik untuk pelatihan python 
+ di Universitas Virtual Terbuka

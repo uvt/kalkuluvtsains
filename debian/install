@@ -1,0 +1,5 @@
+*.py /usr/share/kalkuluvtsains/
+*.desktop /usr/share/applications/
+gambar/kalkulatorsains.png /usr/share/icons/
+gambar/*.png /usr/share/kalkuluvtsains/gambar/
+kalkuluvtsains /usr/bin

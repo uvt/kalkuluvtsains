@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Kalkulator Sains UVT
+Comment=Operasi matematika
+Exec=kalkuluvtsains
+Icon=kalkulatorsains
+Terminal=false
+Type=Application
+Categories=Peralatan-UVT;
+StartupNotify=true
