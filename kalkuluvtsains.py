@@ -4,26 +4,18 @@
 # 
 # kalkuluvtsains.py
 #
-# Copyright 2013 Universitas Virtual Terbuka
+# Copyright 2014 Universitas Virtual Terbuka
 #
 # Referensi program:
 # 1. http://code.google.com/p/calculator-using-pygtk
 # 2. http://code.google.com/p/calculator-python-glade
 # 3. http://zetcode.com/gui/pygtk/layout
 # 4. http://www.vrsets.com/index.php?topic=25484.0
+# 5. https://github.com/davidmalcolm/pygobject/blob/master/pygi-convert.sh
 # 
 # Program ini buat pembelajaran di Universitas Virtual Terbuka
 
-try:
-    import pygtk
-    pygtk.require("2.0")
-except:
-    pass
-try:
-    import gtk, sys
-except:
-    print("GTK Not Available")
-    sys.exit(1)
+from gi.repository import Gtk, Gdk, GdkPixbuf
 
 from math import *
 
@@ -46,11 +38,11 @@ authors = ["Raviyanto Ahmad <raviyanto@gmail.com>", "Rajeswari Seetharaman <sraj
 
 class Kalkulator:
     def __init__(self):
-        self.jendela = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.jendela.set_size_request(250, 365)
-        self.jendela.modify_bg(gtk.STATE_NORMAL, gtk.gdk.Color("#8A0886"))
+        self.jendela = Gtk.Window(Gtk.WindowType.TOPLEVEL)
+        self.jendela.set_size_request(300, 300)
+        self.jendela.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(0, 128, 0, 0.3))
         self.jendela.set_resizable(True)
-        self.jendela.set_position(gtk.WIN_POS_CENTER)
+        self.jendela.set_position(Gtk.WindowPosition.CENTER)
         self.jendela.set_border_width(5)
         self.jendela.set_title("Kalkulator Saintifik UVT")
         
@@ -68,69 +60,69 @@ class Kalkulator:
         self.jendela.show_all()
 
     def tombol(self):
-        self.tombol_hapus = gtk.Button("CE")
-        self.tombol_kurung_buka = gtk.Button("(")
-        self.tombol_kurung_tutup = gtk.Button(")")
-        self.tombol_tutup = gtk.Button("Tutup")
+        self.tombol_hapus = Gtk.Button("CE")
+        self.tombol_kurung_buka = Gtk.Button("(")
+        self.tombol_kurung_tutup = Gtk.Button(")")
+        self.tombol_tutup = Gtk.Button("Tutup")
         
-        self.tombol_tujuh = gtk.Button("7")
-        self.tombol_delapan = gtk.Button("8")
-        self.tombol_sembilan = gtk.Button("9")
-        self.tombol_bagi = gtk.Button("/")
+        self.tombol_tujuh = Gtk.Button("7")
+        self.tombol_delapan = Gtk.Button("8")
+        self.tombol_sembilan = Gtk.Button("9")
+        self.tombol_bagi = Gtk.Button("/")
         
-        self.tombol_empat = gtk.Button("4")
-        self.tombol_lima = gtk.Button("5")
-        self.tombol_enam = gtk.Button("6")
-        self.tombol_kali = gtk.Button("*")
+        self.tombol_empat = Gtk.Button("4")
+        self.tombol_lima = Gtk.Button("5")
+        self.tombol_enam = Gtk.Button("6")
+        self.tombol_kali = Gtk.Button("*")
     
-        self.tombol_satu = gtk.Button("1")
-        self.tombol_dua = gtk.Button("2")
-        self.tombol_tiga = gtk.Button("3")
-        self.tombol_kurang = gtk.Button("-")
+        self.tombol_satu = Gtk.Button("1")
+        self.tombol_dua = Gtk.Button("2")
+        self.tombol_tiga = Gtk.Button("3")
+        self.tombol_kurang = Gtk.Button("-")
 
-        self.tombol_nol = gtk.Button("0")
-        self.tombol_titik = gtk.Button(".")
-        self.tombol_sama_dengan = gtk.Button("=")
-        self.tombol_tambah = gtk.Button("+")
+        self.tombol_nol = Gtk.Button("0")
+        self.tombol_titik = Gtk.Button(".")
+        self.tombol_sama_dengan = Gtk.Button("=")
+        self.tombol_tambah = Gtk.Button("+")
 
-        self.tombol_radians = gtk.Button("radians")
-        self.tombol_e = gtk.Button("e")
-        self.tombol_log = gtk.Button("log")
-        self.tombol_log10 = gtk.Button("log10")
+        self.tombol_radians = Gtk.Button("radians")
+        self.tombol_e = Gtk.Button("e")
+        self.tombol_log = Gtk.Button("log")
+        self.tombol_log10 = Gtk.Button("log10")
 
-        self.tombol_degrees = gtk.Button("degrees")
-        self.tombol_pi = gtk.Button("pi")
-        self.tombol_sinh = gtk.Button("sinh")
-        self.tombol_cosh = gtk.Button("cosh")
+        self.tombol_degrees = Gtk.Button("degrees")
+        self.tombol_pi = Gtk.Button("pi")
+        self.tombol_sinh = Gtk.Button("sinh")
+        self.tombol_cosh = Gtk.Button("cosh")
 
-        self.tombol_tanh = gtk.Button("tanh")
-        self.tombol_sqrt = gtk.Button("sqrt")
-        self.tombol_asin = gtk.Button("asin")
-        self.tombol_acos = gtk.Button("acos")
+        self.tombol_tanh = Gtk.Button("tanh")
+        self.tombol_sqrt = Gtk.Button("sqrt")
+        self.tombol_asin = Gtk.Button("asin")
+        self.tombol_acos = Gtk.Button("acos")
 
-        self.tombol_atan = gtk.Button("atan")
-        self.tombol_sin = gtk.Button("sin")
-        self.tombol_cos = gtk.Button("cos")
-        self.tombol_tan = gtk.Button("tan")
+        self.tombol_atan = Gtk.Button("atan")
+        self.tombol_sin = Gtk.Button("sin")
+        self.tombol_cos = Gtk.Button("cos")
+        self.tombol_tan = Gtk.Button("tan")
 
     def menu(self):
-        self.papan_menu = gtk.MenuBar()
+        self.papan_menu = Gtk.MenuBar()
         
-        self.pilihan = gtk.Menu()
+        self.pilihan = Gtk.Menu()
 
-        self.tentang = gtk.Menu()
+        self.tentang = Gtk.Menu()
 
-        self.keluar = gtk.MenuItem("Keluar")
+        self.keluar = Gtk.MenuItem("Keluar")
         
         self.pilihan.append(self.keluar)
 
-        self.keterangan = gtk.MenuItem("Keterangan")
+        self.keterangan = Gtk.MenuItem("Keterangan")
 
         self.tentang.append(self.keterangan)
 
-        self.pokok_pilihan = gtk.MenuItem("Berkas")
+        self.pokok_pilihan = Gtk.MenuItem("Berkas")
 
-        self.pokok_tentang = gtk.MenuItem("Ihwal")
+        self.pokok_tentang = Gtk.MenuItem("Ihwal")
 
         self.pokok_pilihan.set_submenu(self.pilihan)
 
@@ -141,11 +133,11 @@ class Kalkulator:
         self.papan_menu.append(self.pokok_tentang) 
 
     def masukan(self):
-        self.masukan_data = gtk.Entry()
+        self.masukan_data = Gtk.Entry()
         self.x = self.masukan_data.get_text()
 
     def tabel(self):
-        self.tabel_kalkulator = gtk.Table(rows = 9, columns = 4, homogeneous = True)
+        self.tabel_kalkulator = Gtk.Table(rows = 9, columns = 4, homogeneous = True)
         self.tabel_kalkulator.attach(self.tombol_hapus, 0, 1, 0, 1)
         self.tabel_kalkulator.attach(self.tombol_kurung_buka, 1, 2, 0, 1)
         self.tabel_kalkulator.attach(self.tombol_kurung_tutup, 2, 3, 0, 1)
@@ -192,25 +184,25 @@ class Kalkulator:
         self.tabel_kalkulator.attach(self.tombol_tan, 3, 4, 8, 9)        
 
     def kotak(self):
-        self.kotak_vertikal = gtk.VBox(spacing = 20)
+        self.kotak_vertikal = Gtk.VBox(spacing = 5)
         
-        self.kotak_horizontal_1 = gtk.HBox(spacing = 10)
-        self.kotak_horizontal_1.pack_start(self.papan_menu)
+        self.kotak_horizontal_1 = Gtk.HBox(spacing = 10)
+        self.kotak_horizontal_1.pack_start(self.papan_menu, True, True, 0)
         
-        self.kotak_horizontal_2 = gtk.HBox(spacing = 10)
-        self.kotak_horizontal_2.pack_start(self.masukan_data)
+        self.kotak_horizontal_2 = Gtk.HBox(spacing = 10)
+        self.kotak_horizontal_2.pack_start(self.masukan_data, True, True, 0)
 
-        self.kotak_horizontal_3 = gtk.HBox(spacing = 10)
-        self.kotak_horizontal_3.pack_start(self.tabel_kalkulator)
+        self.kotak_horizontal_3 = Gtk.HBox(spacing = 10)
+        self.kotak_horizontal_3.pack_start(self.tabel_kalkulator, True, True, 0)
 
-        self.kotak_vertikal.pack_start(self.kotak_horizontal_1)
-        self.kotak_vertikal.pack_start(self.kotak_horizontal_2)
-        self.kotak_vertikal.pack_start(self.kotak_horizontal_3)
+        self.kotak_vertikal.pack_start(self.kotak_horizontal_1, True, True, 0)
+        self.kotak_vertikal.pack_start(self.kotak_horizontal_2, True, True, 0)
+        self.kotak_vertikal.pack_start(self.kotak_horizontal_3, True, True, 0)
 
         self.jendela.add(self.kotak_vertikal)
 
     def konek(self):
-        self.keluar.connect("activate", gtk.main_quit)
+        self.keluar.connect("activate", Gtk.main_quit)
         self.keterangan.connect("activate", self.ihwal)
         
         self.tombol_tutup.connect("clicked", self.panggilan_keluar)
@@ -288,21 +280,21 @@ class Kalkulator:
             self.x = self.masukan_data.get_text()
       
     def ihwal(self, a):
-        self.tentang = gtk.AboutDialog()
-        self.tentang.set_program_name("Kalkulator UVT")
-        self.tentang.set_version("0.1")
+        self.tentang = Gtk.AboutDialog()
+        self.tentang.set_program_name("Kalkulator Sains UVT")
+        self.tentang.set_version("0.2")
         self.tentang.set_license(license)
-        self.tentang.set_copyright("(c) 2013 UVT")
+        self.tentang.set_copyright("(c) 2014 UVT")
         self.tentang.set_authors(authors)
         self.tentang.set_comments("Kalkulator Saintifik")
         self.tentang.set_website("http://uvt.web.id")
-        self.tentang.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png"))
+        self.tentang.set_logo(GdkPixbuf.Pixbuf.new_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png"))
         self.tentang.run()
         self.tentang.destroy()
 
     def panggilan_keluar(self, a):
-        gtk.main_quit()
+        Gtk.main_quit()
 
 if __name__ == "__main__":
     Kalkulator()
-    gtk.main()
+    Gtk.main()
