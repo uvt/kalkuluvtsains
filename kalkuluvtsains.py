@@ -256,10 +256,10 @@ class Kalkulator:
     def klik(self, a, b):
         if b == "=":
             x = self.masukan_data.get_text()
-	 try:
-     	     self.masukan_data.set_text(str(eval(x)))
-	 except:
-	     self.masukan_data.set_text("Tidak Bisa")
+	    try:
+     	        self.masukan_data.set_text(str(eval(x)))
+	    except:
+	        self.masukan_data.set_text("Tidak Bisa")
         elif b == "CE":
             self.masukan_data.set_text("")
         else:
