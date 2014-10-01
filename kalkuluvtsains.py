@@ -15,6 +15,7 @@
 # 6. https://github.com/satvikc/Python-Gui-Calculator/blob/master/calc.py
 # 
 # Program ini buat pembelajaran di Universitas Virtual Terbuka
+# Program Python + GTK3
 
 from gi.repository import Gtk, Gdk, GdkPixbuf
 
