@@ -134,7 +134,7 @@ class Kalkulator:
         self.papan_menu.append(self.pokok_tentang) 
 
     def masukan(self):
-        self.masukan_data = gtk.Entry()
+        self.masukan_data = Gtk.Entry()
         self.masukan_data.set_text("")
 
     def tabel(self):
@@ -182,7 +182,7 @@ class Kalkulator:
         self.tabel_kalkulator.attach(self.tombol_atan, 0, 1, 8, 9)
         self.tabel_kalkulator.attach(self.tombol_sin, 1, 2, 8, 9)
         self.tabel_kalkulator.attach(self.tombol_cos, 2, 3, 8, 9)
-        self.tabel_kalkulator.attach(self.tombol_tan, 3, 4, 8, 9)        
+        self.tabel_kalkulator.attach(self.tombol_tan, 3, 4, 8, 9)
 
     def kotak(self):
         self.kotak_vertikal = Gtk.VBox(spacing = 5)
@@ -209,7 +209,7 @@ class Kalkulator:
         self.tombol_tutup.connect("clicked", self.panggilan_keluar)
         self.jendela.connect("destroy", self.panggilan_keluar)
         
-        self.tombol_satu.connect("clicked", self.klik, "1")    
+        self.tombol_satu.connect("clicked", self.klik, "1")
         self.tombol_dua.connect("clicked", self.klik, "2")
         self.tombol_tiga.connect("clicked", self.klik, "3")
         self.tombol_empat.connect("clicked", self.klik, "4")
@@ -256,10 +256,10 @@ class Kalkulator:
     def klik(self, a, b):
         if b == "=":
             x = self.masukan_data.get_text()
-	    try:
-     	        self.masukan_data.set_text(str(eval(x)))
-	    except:
-	        self.masukan_data.set_text("Tidak Bisa")
+            try:
+                self.masukan_data.set_text(str(eval(x)))
+            except:
+                self.masukan_data.set_text("Tidak Bisa")
         elif b == "CE":
             self.masukan_data.set_text("")
         else:
@@ -274,7 +274,7 @@ class Kalkulator:
         self.tentang.set_copyright("(c) 2014 UVT")
         self.tentang.set_authors(authors)
         self.tentang.set_comments("Kalkulator Python + GTK3")
-        self.tentang.set_website("http://uvt.web.id")
+        self.tentang.set_website("https://github.com/UVT/kalkuluvtsains")
         self.tentang.set_logo(GdkPixbuf.Pixbuf.new_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png"))
         self.tentang.run()
         self.tentang.destroy()
