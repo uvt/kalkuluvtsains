@@ -12,6 +12,7 @@
 # 3. http://zetcode.com/gui/pygtk/layout
 # 4. http://www.vrsets.com/index.php?topic=25484.0
 # 5. https://github.com/davidmalcolm/pygobject/blob/master/pygi-convert.sh
+# 6. https://github.com/satvikc/Python-Gui-Calculator/blob/master/calc.py
 # 
 # Program ini buat pembelajaran di Universitas Virtual Terbuka
 
@@ -133,8 +134,8 @@ class Kalkulator:
         self.papan_menu.append(self.pokok_tentang) 
 
     def masukan(self):
-        self.masukan_data = Gtk.Entry()
-        self.x = self.masukan_data.get_text()
+        self.masukan_data = gtk.Entry()
+        self.masukan_data.set_text("")
 
     def tabel(self):
         self.tabel_kalkulator = Gtk.Table(rows = 9, columns = 4, homogeneous = True)
@@ -254,39 +255,25 @@ class Kalkulator:
 
     def klik(self, a, b):
         if b == "=":
-            self.tanda = False
-            x = "self.x=" + self.masukan_data.get_text()
-            exec(x)
+            x = self.masukan_data.get_text()
+	 try:
+     	     self.masukan_data.set_text(str(eval(x)))
+	 except:
+	     self.masukan_data.set_text("Tidak Bisa")
         elif b == "CE":
             self.masukan_data.set_text("")
-            self.tanda = False
-            self.hapus = True
-            self.x = None
         else:
-            self.tanda = True
-            self.hapus = False
-            
-        if self.tanda:
-            if not self.x:
-                self.x = b
-            else:
-                self.x = self.x + b
-                
-        if not self.hapus:
-            self.masukan_data.set_text(str(self.x))
-            self.x == None
-
-        if b == "=":
-            self.x = self.masukan_data.get_text()
+            x = self.masukan_data.get_text()
+            self.masukan_data.set_text(x + b)
       
     def ihwal(self, a):
         self.tentang = Gtk.AboutDialog()
-        self.tentang.set_program_name("Kalkulator Sains UVT")
+        self.tentang.set_program_name("Kalkulator Saintifik UVT")
         self.tentang.set_version("0.2")
         self.tentang.set_license(license)
         self.tentang.set_copyright("(c) 2014 UVT")
         self.tentang.set_authors(authors)
-        self.tentang.set_comments("Kalkulator Saintifik")
+        self.tentang.set_comments("Kalkulator Python + GTK3")
         self.tentang.set_website("http://uvt.web.id")
         self.tentang.set_logo(GdkPixbuf.Pixbuf.new_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png"))
         self.tentang.run()
