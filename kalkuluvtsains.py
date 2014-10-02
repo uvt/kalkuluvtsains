@@ -15,7 +15,7 @@
 # 6. https://github.com/satvikc/Python-Gui-Calculator/blob/master/calc.py
 # 
 # Program ini buat pembelajaran di Universitas Virtual Terbuka
-# Program Python + GTK3
+# Program Python3 + GTK3
 
 from gi.repository import Gtk, Gdk, GdkPixbuf
 
@@ -35,10 +35,10 @@ along with Kalkulator Saintifik UVT; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA."""
 
-authors = ["Raviyanto Ahmad <raviyanto@gmail.com>", "Rajeswari Seetharaman <sraji.me@gmail.com>", 
-           "Jan Bodnar <vronskij@gmail.com>"]
+authors = ["Raviyanto Ahmad <raviyanto@gmail.com>", "Rajeswari Seetharaman <sraji.me@gmail.com>", "Jan Bodnar <vronskij@gmail.com>"]
 
 class Kalkulator:
+
     def __init__(self):
         self.jendela = Gtk.Window(Gtk.WindowType.TOPLEVEL)
         self.jendela.set_size_request(300, 300)
@@ -47,12 +47,12 @@ class Kalkulator:
         self.jendela.set_position(Gtk.WindowPosition.CENTER)
         self.jendela.set_border_width(5)
         self.jendela.set_title("Kalkulator Saintifik UVT")
-        
+
         try:
             self.jendela.set_icon_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png")
-        except Exception, e:
-            print e.message
-          
+        except Exception as e:
+            logger.error('Gagal menampilkan gambar: '+ str(e))
+
         self.tombol()
         self.menu()
         self.tabel()
@@ -61,12 +61,13 @@ class Kalkulator:
         self.konek()
         self.jendela.show_all()
 
+
     def tombol(self):
         self.tombol_hapus = Gtk.Button("CE")
         self.tombol_kurung_buka = Gtk.Button("(")
         self.tombol_kurung_tutup = Gtk.Button(")")
         self.tombol_tutup = Gtk.Button("Tutup")
-        
+
         self.tombol_tujuh = Gtk.Button("7")
         self.tombol_delapan = Gtk.Button("8")
         self.tombol_sembilan = Gtk.Button("9")
@@ -76,7 +77,7 @@ class Kalkulator:
         self.tombol_lima = Gtk.Button("5")
         self.tombol_enam = Gtk.Button("6")
         self.tombol_kali = Gtk.Button("*")
-    
+
         self.tombol_satu = Gtk.Button("1")
         self.tombol_dua = Gtk.Button("2")
         self.tombol_tiga = Gtk.Button("3")
@@ -107,6 +108,7 @@ class Kalkulator:
         self.tombol_cos = Gtk.Button("cos")
         self.tombol_tan = Gtk.Button("tan")
 
+
     def menu(self):
         self.papan_menu = Gtk.MenuBar()
         
@@ -132,11 +134,13 @@ class Kalkulator:
 
         self.papan_menu.append(self.pokok_pilihan)
 
-        self.papan_menu.append(self.pokok_tentang) 
+        self.papan_menu.append(self.pokok_tentang)
+
 
     def masukan(self):
         self.masukan_data = Gtk.Entry()
         self.masukan_data.set_text("")
+
 
     def tabel(self):
         self.tabel_kalkulator = Gtk.Table(rows = 9, columns = 4, homogeneous = True)
@@ -185,12 +189,13 @@ class Kalkulator:
         self.tabel_kalkulator.attach(self.tombol_cos, 2, 3, 8, 9)
         self.tabel_kalkulator.attach(self.tombol_tan, 3, 4, 8, 9)
 
+
     def kotak(self):
         self.kotak_vertikal = Gtk.VBox(spacing = 5)
-        
+
         self.kotak_horizontal_1 = Gtk.HBox(spacing = 10)
         self.kotak_horizontal_1.pack_start(self.papan_menu, True, True, 0)
-        
+
         self.kotak_horizontal_2 = Gtk.HBox(spacing = 10)
         self.kotak_horizontal_2.pack_start(self.masukan_data, True, True, 0)
 
@@ -203,13 +208,14 @@ class Kalkulator:
 
         self.jendela.add(self.kotak_vertikal)
 
+
     def konek(self):
         self.keluar.connect("activate", Gtk.main_quit)
         self.keterangan.connect("activate", self.ihwal)
-        
+
         self.tombol_tutup.connect("clicked", self.panggilan_keluar)
         self.jendela.connect("destroy", self.panggilan_keluar)
-        
+
         self.tombol_satu.connect("clicked", self.klik, "1")
         self.tombol_dua.connect("clicked", self.klik, "2")
         self.tombol_tiga.connect("clicked", self.klik, "3")
@@ -222,7 +228,7 @@ class Kalkulator:
         self.tombol_sembilan.connect("clicked", self.klik, "9")
         self.tombol_nol.connect("clicked", self.klik, "0")
         self.tombol_titik.connect("clicked", self.klik, ".")
-        
+
         self.tombol_kurung_tutup.connect("clicked", self.klik, ")")
         self.tombol_kurung_buka.connect("clicked", self.klik, "(")
 
@@ -254,40 +260,47 @@ class Kalkulator:
         self.tombol_log.connect("clicked", self.klik, "log(")
         self.tombol_log10.connect("clicked", self.klik, "log10(")
 
+
     def klik(self, a, b):
         if b == "=":
             x = self.masukan_data.get_text()
+
             try:
                 self.masukan_data.set_text(str(eval(x)))
             except:
                 self.masukan_data.set_text("Tidak Bisa")
+
         elif b == "CE":
             self.masukan_data.set_text("")
+
         else:
             x = self.masukan_data.get_text()
             self.masukan_data.set_text(x + b)
-      
+
+
     def ihwal(self, a):
         self.tentang = Gtk.AboutDialog()
         self.tentang.set_program_name("Kalkulator Saintifik UVT")
-        self.tentang.set_version("0.2")
+        self.tentang.set_version("0.3")
         self.tentang.set_license(license)
         self.tentang.set_copyright("(c) 2014 UVT")
         self.tentang.set_authors(authors)
-        self.tentang.set_comments("Kalkulator Python + GTK3")
+        self.tentang.set_comments("Kalkulator Python3 + GTK3")
         self.tentang.set_website("https://github.com/UVT/kalkuluvtsains")
         self.tentang.set_logo(GdkPixbuf.Pixbuf.new_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png"))
-        
+
         try:
             self.tentang.set_icon_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png")
-        except Exception, e:
-            print e.message
-            
+        except Exception as e:
+            logger.error('Gagal menampilkan gambar: '+ str(e))
+
         self.tentang.run()
         self.tentang.destroy()
 
+
     def panggilan_keluar(self, a):
         Gtk.main_quit()
+
 
 if __name__ == "__main__":
     Kalkulator()
