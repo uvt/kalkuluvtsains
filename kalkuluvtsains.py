@@ -277,6 +277,12 @@ class Kalkulator:
         self.tentang.set_comments("Kalkulator Python + GTK3")
         self.tentang.set_website("https://github.com/UVT/kalkuluvtsains")
         self.tentang.set_logo(GdkPixbuf.Pixbuf.new_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png"))
+        
+        try:
+            self.tentang.set_icon_from_file("/usr/share/kalkuluvtsains/gambar/kalkulatorsains.png")
+        except Exception, e:
+            print e.message
+            
         self.tentang.run()
         self.tentang.destroy()
 
